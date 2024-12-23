@@ -11,8 +11,9 @@ $judul = "Ubah Password";
 include('../layout/header.php');
 require_once('../../config.php');
 
-$id = $_SESSION['id'];
+
 if(isset($_POST['update'])){
+  $id = $_SESSION['id'];
     $password_baru = password_hash($_POST['password_baru', PASSWORD_DEFAULT]);
     $ulangi_password_baru = password_hash($_POST['ulangi_password_baru', PASSWORD_DEFAULT]);
 
@@ -34,10 +35,10 @@ if(isset($_POST['update'])){
         } else {
           $pegawai = mysqli_query($connection, "UPDATE users SET
           password = '$password_baru'
-          WHERE id = '$id'");
+          WHERE id_pegawai = $id");
     
           $_SESSION['berhasil'] = 'Password berhasil diupdate';
-          header("Location: home/home.php");
+          header("Location: ../home/home.php");
           exit;
         }
     }
@@ -63,7 +64,7 @@ if(isset($_POST['update'])){
         <label for="">Ulangi Password Baru</label>
         <input type="password" name="ulangi_password_baru" class="form-control">
     </div>
-    <input type="hidden" name="id" value="<?=$id ?>">
+    <input type="hidden" name="id" value="<?=$_SESSION['id']; ?>">
 
     <button type="submit" class="btn btn-primary" name="update">Update</button>
         
